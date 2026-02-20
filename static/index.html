@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Commerce Store</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <h1>🛍️ ShopHub</h1>
+                <div class="search-bar">
+                    <input type="text" id="search-input" placeholder="Search products..." onkeyup="handleSearch(event)">
+                    <button onclick="performSearch()">🔍</button>
+                </div>
+                <nav>
+                    <span id="user-name" class="user-name"></span>
+                    <button class="nav-btn home-btn" onclick="goToHome()">🏠 Home</button>
+                    <button class="nav-btn" onclick="showOrders()">📦 Orders</button>
+                    <button class="nav-btn" onclick="showWishlist()">❤️ Wishlist</button>
+                    <button class="cart-btn" onclick="toggleCart()">
+                        🛒 Cart (<span id="cart-count">0</span>)
+                    </button>
+                    <button class="logout-btn" onclick="handleLogout()">Logout</button>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Filter Section -->
+        <div class="filter-section">
+            <h3>Categories</h3>
+            <select id="category-filter" onchange="filterByCategory()">
+                <option value="">All Products</option>
+            </select>
+        </div>
+
+        <!-- Products Grid -->
+        <div class="products-section">
+            <h2>Products</h2>
+            <div id="products-grid" class="products-grid">
+                <!-- Products will be loaded here -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Cart Sidebar -->
+    <div id="cart-sidebar" class="cart-sidebar">
+        <div class="cart-header">
+            <h2>Shopping Cart</h2>
+            <button class="close-btn" onclick="toggleCart()">✕</button>
+        </div>
+        <div id="cart-items" class="cart-items">
+            <!-- Cart items will be loaded here -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <strong>Total:</strong>
+                <span id="cart-total">$0.00</span>
+            </div>
+            <button class="checkout-btn" onclick="showCheckout()">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div id="checkout-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Checkout</h2>
+                <button class="close-btn" onclick="closeCheckout()">✕</button>
+            </div>
+            <form id="checkout-form" onsubmit="submitOrder(event)">
+                <div class="form-group">
+                    <label for="customer-name">Full Name *</label>
+                    <input type="text" id="customer-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="customer-email">Email *</label>
+                    <input type="email" id="customer-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="shipping-address">Shipping Address *</label>
+                    <textarea id="shipping-address" rows="3" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="payment-method">Payment Method *</label>
+                    <select id="payment-method" required>
+                        <option value="Cash on Delivery">Cash on Delivery</option>
+                        <option value="Credit Card">Credit Card</option>
+                        <option value="Debit Card">Debit Card</option>
+                        <option value="UPI">UPI</option>
+                        <option value="Net Banking">Net Banking</option>
+                    </select>
+                </div>
+                <div class="checkout-summary">
+                    <h3>Order Summary</h3>
+                    <div id="checkout-items"></div>
+                    <div class="checkout-total">
+                        <strong>Total:</strong>
+                        <span id="checkout-total">$0.00</span>
+                    </div>
+                </div>
+                <button type="submit" class="submit-btn">Place Order</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="success-modal" class="modal">
+        <div class="modal-content success-content">
+            <div class="success-icon">✓</div>
+            <h2>Order Placed Successfully!</h2>
+            <p>Your order has been confirmed.</p>
+            <p>Order ID: <strong id="order-id"></strong></p>
+            <button class="submit-btn" onclick="closeSuccess()">Continue Shopping</button>
+        </div>
+    </div>
+
+    <!-- Wishlist Modal -->
+    <div id="wishlist-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>❤️ My Wishlist</h2>
+                <button class="close-btn" onclick="closeWishlist()">✕</button>
+            </div>
+            <div id="wishlist-items" class="wishlist-content">
+                <!-- Wishlist items will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Orders Modal -->
+    <div id="orders-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>📦 My Orders</h2>
+                <button class="close-btn" onclick="closeOrders()">✕</button>
+            </div>
+            <div id="orders-content" class="orders-content">
+                <!-- Orders will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>
